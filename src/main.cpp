@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/ai_vision.hpp"
 
 /**
  * A callback function for LLEMU's center button.
@@ -27,6 +28,11 @@ void initialize() {
 	pros::lcd::set_text(1, "Hello PROS User!");
 
 	pros::lcd::register_btn1_cb(on_center_button);
+
+	vision.reset();
+	vision.enable_detection_types(pros::AivisionModeType::tags);
+	vision.set_tag_family(pros::AivisionTagFamily::tag_16H5);
+
 	Autonomous::init();
 	Control::opinit();
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include "pros/ai_vision.hpp"
 
 
 extern pros::Motor leftMotor1;
@@ -13,14 +14,16 @@ extern pros::Motor intakeMotor2;
 extern pros::Rotation odom;
 extern pros::Imu inertial;
 
-extern pros::ADIDigitalOut intakePneumatic;
-extern pros::ADIDigitalOut backPneumatic;
-extern pros::ADIDigitalOut scorePneumatic;
-extern pros::ADIDigitalOut preventScorePneumatic;
+extern pros::adi::DigitalOut intakePneumatic;
+extern pros::adi::DigitalOut backPneumatic;
+extern pros::adi::DigitalOut scorePneumatic;
+extern pros::adi::DigitalOut preventScorePneumatic;
 
 extern lemlib::Chassis chassis;
 
 extern pros::Optical optical;
+
+extern pros::AIVision vision;
 
 extern bool teamRed;
 extern bool scoringLow;

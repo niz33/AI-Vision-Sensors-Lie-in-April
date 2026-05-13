@@ -20,13 +20,15 @@ pros::Rotation odom(-17);
 pros::Imu inertial(18);
 
 //pneumatics
-pros::ADIDigitalOut intakePneumatic('C', false);
-pros::ADIDigitalOut backPneumatic('B', false);
-pros::ADIDigitalOut scorePneumatic('D', false);
-pros::ADIDigitalOut preventScorePneumatic('A', true);
+pros::adi::DigitalOut intakePneumatic('C', false);
+pros::adi::DigitalOut backPneumatic('B', false);
+pros::adi::DigitalOut scorePneumatic('D', false);
+pros::adi::DigitalOut preventScorePneumatic('A', true);
 
 //optical and distance
 pros::Optical optical(9);
+
+pros::AIVision vision(10);
 
 //global vars
 bool teamRed = true;
