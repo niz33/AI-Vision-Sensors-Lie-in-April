@@ -130,15 +130,15 @@ void Control::debug(){
     // pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
     // pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
 
-    auto objects = vision.get_all_objects();
-    for (auto &object : objects) {
-        if (pros::AIVision::is_type(object, pros::AivisionDetectType::color)) {
-            pros::lcd::print(0, "id: %d", object.id);
-            pros::lcd::print(1, "%d %d %d %d %d", object.object.color.xoffset, object.object.color.yoffset, object.object.color.width, object.object.color.height, object.object.color.angle);
-            // printf("id %d\n", object.id);
-            // printf("%d %d %d %d %d\n", object.object.color.xoffset, object.object.color.yoffset, object.object.color.width, object.object.color.height, object.object.color.angle);
-        }
-    }
+    // auto objects = vision.get_all_objects();
+    // for (auto &object : objects) {
+    //     if (pros::AIVision::is_type(object, pros::AivisionDetectType::color)) {
+    //         pros::lcd::print(0, "id: %d", object.id);
+    //         pros::lcd::print(1, "%d %d %d %d %d", object.object.color.xoffset, object.object.color.yoffset, object.object.color.width, object.object.color.height, object.object.color.angle);
+    //         // printf("id %d\n", object.id);
+    //         // printf("%d %d %d %d %d\n", object.object.color.xoffset, object.object.color.yoffset, object.object.color.width, object.object.color.height, object.object.color.angle);
+    //     }
+    // }
 }
 
 void Control::opupdate(){

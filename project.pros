@@ -1,11 +1,11 @@
 {
     "py/object": "pros.conductor.project.Project",
     "py/state": {
-        "project_name": "AI-Vision-Sensors-Lie-in-April",
+        "project_name": "AI-Vision-Lie-In-April",
         "target": "v5",
         "templates": {
             "LemLib": {
-                "location": "/Users/nickzhang/Library/Application Support/PROS/templates/LemLib@0.5.6",
+                "location": "C:\\Users\\xzliu\\AppData\\Roaming\\PROS\\templates\\LemLib@0.5.6",
                 "metadata": {
                     "origin": "LemLib"
                 },
@@ -48,7 +48,7 @@
                 "version": "0.5.6"
             },
             "kernel": {
-                "location": "/Users/nickzhang/Library/Application Support/PROS/templates/kernel@4.2.2",
+                "location": "C:\\Users\\xzliu\\AppData\\Roaming\\PROS\\templates\\kernel@4.2.2",
                 "metadata": {
                     "cold_addr": "58720256",
                     "cold_output": "bin/cold.package.bin",
@@ -124,7 +124,7 @@
                 "version": "4.2.2"
             },
             "liblvgl": {
-                "location": "/Users/nickzhang/Library/Application Support/PROS/templates/liblvgl@9.2.0",
+                "location": "C:\\Users\\xzliu\\AppData\\Roaming\\PROS\\templates\\liblvgl@9.2.0",
                 "metadata": {
                     "origin": "pros-mainline"
                 },

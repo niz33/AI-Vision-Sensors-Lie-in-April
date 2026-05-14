@@ -30,9 +30,9 @@ void initialize() {
 	pros::lcd::register_btn1_cb(on_center_button);
 
 	vision.reset();
-	vision.enable_detection_types(pros::AivisionModeType::tags);
-	vision.set_tag_family(pros::AivisionTagFamily::tag_16H5);
-
+	vision.enable_detection_types(pros::v5::AivisionModeType::tags);
+	vision.set_tag_family(pros::v5::AivisionTagFamily::tag_21H7);
+	pros::delay(3000);
 	Autonomous::init();
 	Control::opinit();
 }
