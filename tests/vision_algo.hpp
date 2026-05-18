@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <cmath>
 
 struct Vec2 {
     double x, y;
@@ -13,6 +14,20 @@ struct Vec3 {
 struct CameraSettings {
     int resX, resY;
     double fov; // Horizontal Field of View in radians
+    
+    // Precomputed intrinsics
+    double fx, fy, cx, cy;
+
+    CameraSettings() : resX(640), resY(480), fov(1.047) {
+        updateIntrinsics();
+    }
+
+    void updateIntrinsics() {
+        fx = (resX / 2.0) / std::tan(fov / 2.0);
+        fy = fx; // Assume square pixels
+        cx = resX / 2.0;
+        cy = resY / 2.0;
+    }
 };
 
 // Math Utilities
@@ -23,4 +38,4 @@ Vec3 normalize(Vec3 v);
 
 // Core Algorithm Declarations
 std::vector<Vec2> projectAprilTag(const Vec3& location, const Vec3& lookDirection, const CameraSettings& cam);
-CameraSettings solveCameraFromAprilTag(const std::vector<Vec2>& screenCoords);
+CameraSettings solveCameraFromAprilTag(const std::vector<Vec2>& screenCoords, const CameraSettings& cam);

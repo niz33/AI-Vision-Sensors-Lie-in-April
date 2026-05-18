@@ -8,8 +8,11 @@ void test_forward_projection() {
     cam.resY = 1080;
     cam.fov = 1.047; // ~60 degrees in radians
 
-    Vec3 location = {0.5, -2.0, 1.0};
-    Vec3 lookDirection = {0.0, 1.0, -0.3};
+    Vec3 location = {1.37, -1.42, 0.75};
+    Vec3 lookDirection = {-0.43, 0.58, -0.29};
+
+    Vec3 normalizedLook = normalize(lookDirection);
+    std::cout << "Normalized Look Direction: (" << normalizedLook.x << ", " << normalizedLook.y << ", " << normalizedLook.z << ")\n";   
 
     auto coords = projectAprilTag(location, lookDirection, cam);
     
@@ -17,6 +20,8 @@ void test_forward_projection() {
     for(int i = 0; i < 4; ++i) {
         std::cout << "Projected Corner " << i << ": (" << coords[i].x << ", " << coords[i].y << ")\n";
     }
+
+    auto solvedCam = solveCameraFromAprilTag(coords, cam);
 }
 
 int main() {

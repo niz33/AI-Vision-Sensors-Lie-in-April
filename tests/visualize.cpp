@@ -110,6 +110,9 @@ int main() {
         cam.fov = fovDeg * PI / 180.0f;
         cam.resX = (int)resXF;
         cam.resY = (int)resYF;
+        
+        // Update intrinsics with the latest GUI values
+        cam.updateIntrinsics();
 
         // Calculate Projection
         auto coords = projectAprilTag(location, lookDirection, cam);
