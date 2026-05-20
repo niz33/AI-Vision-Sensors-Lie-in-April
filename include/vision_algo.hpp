@@ -36,6 +36,4 @@ double dotProduct(const Vec3& a, const Vec3& b);
 Vec3 crossProduct(const Vec3& a, const Vec3& b);
 Vec3 normalize(Vec3 v);
 
-// Core Algorithm Declarations
-std::vector<Vec2> projectAprilTag(const Vec3& location, const Vec3& lookDirection, const CameraSettings& cam);
 Vec3 solveCameraFromAprilTag(const std::vector<Vec2>& screenCoords, const CameraSettings& cam);

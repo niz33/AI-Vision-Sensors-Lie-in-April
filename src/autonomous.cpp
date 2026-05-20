@@ -1,7 +1,11 @@
 #include "liblvgl/llemu.hpp"
 #include "main.h"
+#include "pros/ai_vision.h"
+#include "vision_algo.hpp"
 
 auto &output = std::cout;
+
+std::vector<std::pair<double, double>> Autonomous::smoothedObject = {{0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}};
 
 void Autonomous::init()
 {
@@ -39,8 +43,52 @@ void Autonomous::tuneLateralPID()
   chassis.moveToPoint(0, 0, 20000, {.forwards = false}, false);
 }
 
+void Autonomous::calculate()
+{ 
+
+  CameraSettings cam;
+  cam.resX = 320;
+  cam.resY = 240;
+  cam.fov = 1.047/60*74;
+  cam.updateIntrinsics();
+  while (true)
+  {
+    // pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
+    // pros::lcd::print(1, "Y: %f", chassis.getPose().y); // y
+    // pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
+    auto objects = vision.get_all_objects();
+
+    const double smoothingWeight=10;
+    if(objects.size() >0){
+      smoothedObject[0].first = (smoothedObject[0].first*smoothingWeight + objects[0].object.tag.x0) / (smoothingWeight+1);
+      smoothedObject[0].second = (smoothedObject[0].second*smoothingWeight + objects[0].object.tag.y0) / (smoothingWeight+1);
+      smoothedObject[1].first = (smoothedObject[1].first*smoothingWeight + objects[0].object.tag.x1) / (smoothingWeight+1);
+      smoothedObject[1].second = (smoothedObject[1].second*smoothingWeight + objects[0].object.tag.y1) / (smoothingWeight+1);
+      smoothedObject[2].first = (smoothedObject[2].first*smoothingWeight + objects[0].object.tag.x2) / (smoothingWeight+1);
+      smoothedObject[2].second = (smoothedObject[2].second*smoothingWeight + objects[0].object.tag.y2) / (smoothingWeight+1);
+      smoothedObject[3].first = (smoothedObject[3].first*smoothingWeight + objects[0].object.tag.x3) / (smoothingWeight+1);
+      smoothedObject[3].second = (smoothedObject[3].second*smoothingWeight + objects[0].object.tag.y3) / (smoothingWeight+1);
+    }
+      
+      
+
+
+    pros::delay(10);
+
+
+
+    
+  }
+}
+
 void Autonomous::constantlyPrintPose()
-{
+{ 
+
+  CameraSettings cam;
+  cam.resX = 320;
+  cam.resY = 240;
+  cam.fov = 1.047/60*74;
+  cam.updateIntrinsics();
   while (true)
   {
     // pros::lcd::print(0, "X: %f", chassis.getPose().x); // x
@@ -48,19 +96,32 @@ void Autonomous::constantlyPrintPose()
     // pros::lcd::print(2, "Theta: %f", chassis.getPose().theta); // heading
     auto objects = vision.get_all_objects();
     pros::lcd::print(0, "num objects: %d", objects.size());
-    pros::lcd::print(3, "time: %d", pros::millis());
-    for (auto &object : objects)
-    {
-      pros::lcd::print(1, "id: %d", object.id);
-      pros::lcd::print(2, "%d %d %d %d %d %d %d %d", object.object.tag.x0,
-                       object.object.tag.y0, object.object.tag.x1, object.object.tag.y1,
-                       object.object.tag.x2, object.object.tag.y2, object.object.tag.x3, object.object.tag.y3);
-      // printf("id %d\n", object.id);
-      // printf("%d %d %d %d %d\n", object.object.color.xoffset,
-      // object.object.color.yoffset, object.object.color.width,
-      // object.object.color.height, object.object.color.angle);
-    }
+    //pros::lcd::print(3, "time: %d", pros::millis());
+
+    auto &object = smoothedObject;
+      pros::lcd::print(1, "smoothed points:");
+      pros::lcd::print(2, "%.1f %.1f %.1f %.1f", object[0].first,
+                       object[0].second, object[1].first, object[1].second);
+
+
+      pros::lcd::print(3, "%.1f %.1f %.1f %.1f", object[2].first,
+                       object[2].second, object[3].first, object[3].second);
+      
+      Vec3 pos=solveCameraFromAprilTag({{object[3].first, object[3].second},
+                                {object[2].first, object[2].second},
+                                {object[1].first, object[1].second},
+                                {object[0].first, object[0].second}}, cam);
+      
+      pros::lcd::print(4, "x %f", pos.x);
+      pros::lcd::print(5, "y %f", pos.y);
+      pros::lcd::print(6, "z %f", chassis.getPose().theta);
+
+
     pros::delay(100);
+
+
+
+    
   }
 }
 

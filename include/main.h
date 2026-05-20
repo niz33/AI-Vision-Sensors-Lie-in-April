@@ -41,6 +41,7 @@
 #include "autonomous.h"
 #include "globals.h"
 #include "control.h"
+#include "vision_algo.hpp"
 #include "liblvgl/lvgl.h"
 /**
  * You should add more #includes here

@@ -1,4 +1,5 @@
 #pragma once
+#include "lemlib/chassis/chassis.hpp"
 #include "main.h"
 #include "pros/ai_vision.hpp"
 
@@ -27,3 +28,5 @@ extern pros::AIVision vision;
 
 extern bool teamRed;
 extern bool scoringLow;
+
+extern lemlib::Chassis chassis;

@@ -1,4 +1,5 @@
 #include "main.h"
+#include "pros/rtos.hpp"
 
 const int UNDEF = 50;
 //controller
@@ -34,6 +35,9 @@ pros::AIVision vision(10);
 bool teamRed = true;
 bool scoringLow = false;
 
+//tasks
+pros::Task calculateTask(Autonomous::calculate);
+
 //lemlib
 lemlib::Drivetrain driveTrain(&leftDrive, &rightDrive
                               , 10.0 // track width
@@ -41,7 +45,7 @@ lemlib::Drivetrain driveTrain(&leftDrive, &rightDrive
                               , 480 // rpm
                               , 8); // horizontal drift
 lemlib::TrackingWheel verticalOdomWheel(&odom, lemlib::Omniwheel::NEW_275, 0.75);
-lemlib::OdomSensors odomSensors(&verticalOdomWheel, nullptr, nullptr, nullptr, &inertial);
+lemlib::OdomSensors odomSensors(nullptr, nullptr, nullptr, nullptr, &inertial);
 // lateral PID controller
 lemlib::ControllerSettings lateral_controller(8, // proportional gain (kP)
                                               0.0001, // integral gain (kI)
