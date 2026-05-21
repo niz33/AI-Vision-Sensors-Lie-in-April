@@ -60,10 +60,10 @@ Vec3 solveCameraFromAprilTag(const std::vector<Vec2>& screenCoords, const Camera
 
     double angle=-chassis.getPose().theta/180*3.14159265358979323846;
 
-    angle=0;
+    //angle=0;
 
     Vec3 camInTagSpace = {
-        dist * std::tan(theta) * std::cos(angle) + dist * std::sin(angle),
+        - dist * std::tan(theta) * std::cos(angle) + dist * std::sin(angle),
         dist * std::tan(theta) * std::sin(angle) + dist * std::cos(angle),
         0
     };
