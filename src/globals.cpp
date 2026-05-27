@@ -30,6 +30,7 @@ pros::adi::DigitalOut preventScorePneumatic('A', true);
 pros::Optical optical(9);
 
 pros::AIVision vision(10);
+pros::AIVision vision2(6);
 
 //global vars
 bool teamRed = true;

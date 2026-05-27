@@ -25,6 +25,7 @@ extern lemlib::Chassis chassis;
 extern pros::Optical optical;
 
 extern pros::AIVision vision;
+extern pros::AIVision vision2;
 
 extern bool teamRed;
 extern bool scoringLow;

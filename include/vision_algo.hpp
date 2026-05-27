@@ -36,4 +36,6 @@ double dotProduct(const Vec3& a, const Vec3& b);
 Vec3 crossProduct(const Vec3& a, const Vec3& b);
 Vec3 normalize(Vec3 v);
 
+Vec2 findAprilTagCenter(const std::vector<Vec2>& screenCoords);
 Vec3 solveCameraFromAprilTag(const std::vector<Vec2>& screenCoords, const CameraSettings& cam);
+Vec3 solveCameraFromTwoAprilTags(const std::vector<Vec2>& screenCoords1, const std::vector<Vec2>& screenCoords2, const CameraSettings& cam);

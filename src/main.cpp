@@ -32,6 +32,9 @@ void initialize() {
 	vision.reset();
 	vision.enable_detection_types(pros::v5::AivisionModeType::tags);
 	vision.set_tag_family(pros::v5::AivisionTagFamily::tag_21H7);
+	vision2.reset();
+	vision2.enable_detection_types(pros::v5::AivisionModeType::tags);
+	vision2.set_tag_family(pros::v5::AivisionTagFamily::tag_21H7);
 	pros::delay(3000);
 	Autonomous::init();
 	Control::opinit();
