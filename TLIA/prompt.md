@@ -39,7 +39,26 @@ In the project’s Makefile, add the following line to line 14:
 Then to build the library, run pros make library. Next, you will need to zip the template directory. The zip file should not contain the libfbc-template directory (that is, the root of the zip file should contain template.pros and all your other files). Next, you should create a release on GitHub and upload your template(s) to the release. You can see Purdue SIGBots’ repository at purduesigbots/libblrs.
 ```
 
+# library structure
+
 The library should be a state machine, that is, it is an object that
-- asks for pointers to ai vision sensors and their positions (make a struct that groups the info of the pointer and position and rotation). The ai vision sensors are however assumed to be vertical and the camera view is in the default rotation.
+- asks for pointers to ai vision sensors and their positions (make a struct that groups the info of the pointer and position and rotation) relative to a base point of the robot. The ai vision sensors are however assumed to be vertical and the camera view is in the default rotation. you can check src/globals.cpp to inspiration of how another library (lemlib) has its odometry set up with configuration and sensors. The libray should set all ai vision sensors to detect tags. check src/main.cpp for how they are initialized.
 - can be called to calculate the position of the robot relative to a tag of a given id and the robots relative rotation to that id. for on the calculation later.
-- 
+
+
+# calculations
+
+the library should return results in a struct containing a result type (based on which algorithm is used) and a answer.
+
+- when the library is requested to calculate the position of a robot relative to a tag, it tries to find two ai vision that both detect a tag of the given id
+  - if it finds two sensors, use the intersection line algorithm. right now the algorithm in the test code only supports two sensors in the same direction 3 inches apart, you should generalize this to arbitrary locations and rotations.
+  - if it find only one sensor, use the one sensor algorithm.
+  - if it finds no sensors that detect a usable object, return a special result type that signifies it.
+  - 
+
+# style
+
+right now the code is kinda messy, make sure things are written well and names of variables are clear and follow conventions but are not too long. also include helpful comments and a brief explanation of the algorithm in front of each function.
+
+
+
